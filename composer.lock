@@ -1,0 +1,127 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
+    ],
+    "hash": "c0ebeb2ac56ff7cc8118aa3b9497be3d",
+    "packages": [
+        {
+            "name": "dg/ftp-deployment",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/dg/ftp-deployment.git",
+                "reference": "50b93703f98d38643667ad21711f886b5ce7cbef"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/dg/ftp-deployment/zipball/50b93703f98d38643667ad21711f886b5ce7cbef",
+                "reference": "50b93703f98d38643667ad21711f886b5ce7cbef",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "nette/tester": "~1.3"
+            },
+            "bin": [
+                "Deployment/deployment"
+            ],
+            "type": "project",
+            "autoload": {
+                "classmap": [
+                    "Deployment/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "http://davidgrudl.com"
+                }
+            ],
+            "description": "A tool for automated deployment of web applications to an FTP server.",
+            "homepage": "https://github.com/dg/ftp-deployment",
+            "keywords": [
+                "deployment",
+                "ftp",
+                "ssh"
+            ],
+            "time": "2015-04-01 11:56:56"
+        }
+    ],
+    "packages-dev": [
+        {
+            "name": "nette/tester",
+            "version": "v1.4.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/nette/tester.git",
+                "reference": "0e9059c051fd685d76e675efb577840b0bb6a288"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/nette/tester/zipball/0e9059c051fd685d76e675efb577840b0bb6a288",
+                "reference": "0e9059c051fd685d76e675efb577840b0bb6a288",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "bin": [
+                "src/tester"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.4-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "src/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause",
+                "GPL-2.0",
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "David Grudl",
+                    "homepage": "http://davidgrudl.com"
+                },
+                {
+                    "name": "Nette Community",
+                    "homepage": "http://nette.org/contributors"
+                }
+            ],
+            "description": "An easy-to-use PHP unit testing framework.",
+            "homepage": "http://nette.org",
+            "keywords": [
+                "nette",
+                "testing",
+                "unit"
+            ],
+            "time": "2015-03-27 14:19:31"
+        }
+    ],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "dg/ftp-deployment": 20
+    },
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": []
+}
