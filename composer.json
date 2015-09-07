@@ -11,7 +11,7 @@
         "dg/ftp-deployment": ">=2.2"
     },
     "require-dev": {
-        "nette/tester": "~1.4"
+        "nette/tester": "~1.4.0"
     },
     "autoload": {
         "classmap": ["src/"]
