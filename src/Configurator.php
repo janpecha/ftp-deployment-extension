@@ -12,7 +12,7 @@
 		);
 
 		/** @var array|NULL */
-		private $config;
+		private $configuration;
 
 		/** @var array|NULL */
 		private $sections;
@@ -47,6 +47,7 @@
 			}
 
 			$this->config = self::merge($configuration, $this->config);
+			$this->configuration = self::merge($configuration, $this->configuration);
 			$this->sections = self::merge($sections, $this->sections);
 			$this->globalSection = self::merge($globalSection, $this->globalSection);
 		}
@@ -102,7 +103,7 @@
 				$sections[''] = NULL;
 			}
 
-			$config = $this->config;
+			$config = $this->configuration; // vychozi globalni konfigurace (colors,...)
 
 			foreach ($sections as $name => $cfg) {
 				$cfg = self::merge($cfg, $this->globalSection);
