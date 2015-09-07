@@ -20,6 +20,16 @@
 		/** @var array|NULL  globalni sekce, dedi z ni jednotlive sekce */
 		private $globalSection;
 
+		/** @var array */
+		private static $urlMapping = array(
+			'scheme' => 'remote.scheme',
+			'user' => 'remote.user',
+			'pass' => 'remote.password',
+			'host' => 'remote.host',
+			'port' => 'remote.port',
+			'path' => 'remote.path',
+		);
+
 
 		/**
 		 * Adds new configuration
@@ -33,7 +43,10 @@
 
 			foreach ($config as $section => $cfg) {
 				if (is_array($cfg)) {
-					$sections[$section] = array_change_key_case($cfg, CASE_LOWER);
+					$sections[$section] = $this->expandSectionConfig(
+						array_change_key_case($cfg, CASE_LOWER),
+						isset($this->sections[$section]) ? $this->sections[$section] : NULL
+					);
 
 				} else {
 					$section = strtolower($section);
@@ -46,7 +59,8 @@
 				}
 			}
 
-			$this->config = self::merge($configuration, $this->config);
+			$globalSection = $this->expandSectionConfig($globalSection, $this->globalSection);
+
 			$this->configuration = self::merge($configuration, $this->configuration);
 			$this->sections = self::merge($sections, $this->sections);
 			$this->globalSection = self::merge($globalSection, $this->globalSection);
@@ -88,15 +102,6 @@
 		 */
 		public function getConfig()
 		{
-			static $remoteKeys = array(
-				'remote.user' => 'user',
-				'remote.password' => 'pass',
-				'remote.host' => 'host',
-				'remote.port' => 'port',
-				'remote.path' => 'path',
-				'remote.scheme' => 'scheme',
-			);
-
 			$sections = $this->sections;
 
 			if (empty($sections)) {
@@ -115,33 +120,56 @@
 				);
 
 				// build 'remote' key
-				$remoteParts = NULL;
-
-				if (isset($cfg['remote'])) {
-					$remoteParts = parse_url($cfg['remote']);
-				}
-
-				foreach ($remoteKeys as $remoteKey => $urlKey) {
-					if (isset($cfg[$remoteKey])) {
-						$remoteParts[$urlKey] = $cfg[$remoteKey];
-						unset($cfg[$remoteKey]);
-					}
-				}
-
-				if (isset($remoteParts['host'])) {
+				if (isset($cfg['remote.host'])) {
 					// generate new URL
-					$cfg['remote'] = (isset($remoteParts['scheme']) ? $remoteParts['scheme'] : 'ftp') . "://"
-						. (isset($remoteParts['user']) ? rawurlencode($remoteParts['user']) : '')
-						. (isset($remoteParts['pass']) ? (':' . rawurlencode($remoteParts['pass'])) : '')
-						. (isset($remoteParts['user']) || isset($remoteParts['pass']) ? '@' : '')
-						. $remoteParts['host']
-						. (isset($remoteParts['port']) ? ":{$remoteParts['port']}" : '')
-						. '/' . (isset($remoteParts['path']) ? ltrim($remoteParts['path'], '/') : '');
+					$cfg['remote'] = (isset($cfg['remote.scheme']) ? $cfg['remote.scheme'] : 'ftp') . "://"
+						. (isset($cfg['remote.user']) ? rawurlencode($cfg['remote.user']) : '')
+						. (isset($cfg['remote.password']) ? (':' . rawurlencode($cfg['remote.password'])) : '')
+						. (isset($cfg['remote.user']) || isset($cfg['remote.password']) ? '@' : '')
+						. $cfg['remote.host']
+						. (isset($cfg['remote.port']) ? ":{$cfg['remote.port']}" : '')
+						. '/' . (isset($cfg['remote.path']) ? ltrim($cfg['remote.path'], '/') : '');
+				}
+
+				foreach (self::$urlMapping as $remoteKey) {
+					// vymazeme vsechny konkretni remote klice (remote.host,...)
+					unset($cfg[$remoteKey]);
 				}
 
 				$config[$name] = $cfg;
 			}
 
+			return $config;
+		}
+
+
+		/**
+		 * @return array|NULL
+		 */
+		private function expandSectionConfig(array $config = NULL, $originalConfig = NULL)
+		{
+			if ($config === NULL) {
+				return NULL;
+			}
+
+			if (isset($config['remote'])) { // expans 'remote' key
+				$url = parse_url($config['remote']); // rozparsujeme URL na jednotlive casti
+
+				foreach ($url as $part => $value) { // projdeme casti
+					if (isset(self::$urlMapping[$part])) { // pokud umime cast namapovat
+						$remoteOption = self::$urlMapping[$part];
+
+						if (isset($config[$remoteOption]) || isset($originalConfig[$remoteOption])) { // pokud v konfiguraci jiz existuje konkretnejsi volba (remote.host,...), tak tuto preskocime
+							// $originalConfig kontrolujeme protoze 'remote' ma na dane urovni uplne nejnizsi prioritu a nechceme, aby nam prepsalo jiz existujici volby
+							continue;
+						}
+
+						$config[self::$urlMapping[$part]] = $value;
+					}
+				}
+			}
+
+			unset($config['remote']);
 			return $config;
 		}
 
