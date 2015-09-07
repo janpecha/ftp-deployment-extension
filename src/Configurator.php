@@ -5,7 +5,7 @@
 	class Configurator
 	{
 		/** @var array */
-		private $configOptions = array(
+		private $globalOptions = array(
 			'log' => TRUE,
 			'colors' => TRUE,
 			'tempdir' => TRUE,
@@ -38,7 +38,7 @@
 				} else {
 					$section = strtolower($section);
 
-					if (isset($this->configOptions[$section])) {
+					if (isset($this->globalOptions[$section])) {
 						$configuration[$section] = $cfg;
 					} else {
 						$globalSection[$section] = $cfg;
