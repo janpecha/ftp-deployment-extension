@@ -11,13 +11,13 @@
 			'tempdir' => TRUE,
 		);
 
-		/** @var array|NULL */
+		/** @var array|NULL  globalni konfigurace (log, colors,...) */
 		private $configuration;
 
-		/** @var array|NULL */
+		/** @var array|NULL  konfigurace sekci */
 		private $sections;
 
-		/** @var array|NULL */
+		/** @var array|NULL  globalni sekce, dedi z ni jednotlive sekce */
 		private $globalSection;
 
 
@@ -106,7 +106,7 @@
 			$config = $this->configuration; // vychozi globalni konfigurace (colors,...)
 
 			foreach ($sections as $name => $cfg) {
-				$cfg = self::merge($cfg, $this->globalSection);
+				$cfg = self::merge($cfg, $this->globalSection); // priradime ke konfiguraci globalni sekci
 
 				unset(
 					$cfg['log'],
