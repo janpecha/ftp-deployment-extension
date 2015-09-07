@@ -8,7 +8,7 @@
         }
     ],
     "require": {
-        "dg/ftp-deployment": "dev-master"
+        "dg/ftp-deployment": ">=2.2"
     },
     "require-dev": {
         "nette/tester": "~1.4"

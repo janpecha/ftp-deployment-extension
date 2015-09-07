@@ -1,23 +1,23 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c0ebeb2ac56ff7cc8118aa3b9497be3d",
+    "hash": "961d6100f049f2c5b6b20d7463048b8b",
     "packages": [
         {
             "name": "dg/ftp-deployment",
-            "version": "dev-master",
+            "version": "v2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/dg/ftp-deployment.git",
-                "reference": "50b93703f98d38643667ad21711f886b5ce7cbef"
+                "reference": "a79c3278effbe8fa85a55ae064bdb22d80b72c64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/dg/ftp-deployment/zipball/50b93703f98d38643667ad21711f886b5ce7cbef",
-                "reference": "50b93703f98d38643667ad21711f886b5ce7cbef",
+                "url": "https://api.github.com/repos/dg/ftp-deployment/zipball/a79c3278effbe8fa85a55ae064bdb22d80b72c64",
+                "reference": "a79c3278effbe8fa85a55ae064bdb22d80b72c64",
                 "shasum": ""
             },
             "require": {
@@ -54,7 +54,7 @@
                 "ftp",
                 "ssh"
             ],
-            "time": "2015-04-01 11:56:56"
+            "time": "2015-06-14 13:25:34"
         }
     ],
     "packages-dev": [
@@ -117,9 +117,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "dg/ftp-deployment": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
