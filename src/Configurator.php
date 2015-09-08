@@ -73,6 +73,10 @@
 		 */
 		public function addFile($file, $primaryFile = FALSE)
 		{
+			if (!is_file($file)) {
+				throw new ConfiguratorException('Config file ' . $file . ' not found');
+			}
+
 			if (pathinfo($file, PATHINFO_EXTENSION) == 'php') {
 				$config = include $file;
 			} else {
@@ -199,4 +203,9 @@
 					return $left;
 			}
 		}
+	}
+
+
+	class ConfiguratorException extends \RuntimeException
+	{
 	}

@@ -8,7 +8,14 @@
 		protected function loadConfigFile($file)
 		{
 			$configurator = new Configurator;
-			$configurator->addFile($file, TRUE);
+
+			try {
+				$configurator->addFile($file, TRUE);
+
+			} catch (ConfiguratorException $e) {
+				echo 'Error: ', $e->getMessage();
+				return FALSE;
+			}
 
 			return $configurator->getConfig();
 		}
