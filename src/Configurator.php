@@ -91,7 +91,10 @@
 				$basePath = pathinfo($file, PATHINFO_DIRNAME);
 
 				foreach ((array) $config['includes'] as $_file) {
-					$this->addFile("$basePath/$_file", FALSE);
+					if (!preg_match('#([a-z]:)?[/\\\\]|[a-z][a-z0-9+.-]*://#Ai', $_file)) { // is absolute
+						$_file = "$basePath/$_file";
+					}
+					$this->addFile($_file, FALSE);
 				}
 			}
 
